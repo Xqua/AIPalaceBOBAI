@@ -26,8 +26,8 @@ class Interogator:
         self.participantID = input("Participant ID: ")
         self.gpt = GPT(self.participantID)
 
-    def get_question_anwser(self):
-        question = input("Question: ")
+    def get_question_anwser(self, question):
+        print(f"Question: {question}")
         anwser = input("Anwser: ")
         qa = {
             "question": question,
@@ -59,9 +59,9 @@ class Interogator:
         self.get_participant_ID()
         summary = self.get_survey_summary()
         print(f"BOB says: \n", summary)
-        self.get_question_anwser()
-        while not self.end_interogation():
-            self.get_question_anwser()
+        questions = open("./prompts/questions.txt").readlines()
+        for question in questions:
+            self.get_question_anwser(question)
         self.save_data()
 
 if __name__ == '__main__':
